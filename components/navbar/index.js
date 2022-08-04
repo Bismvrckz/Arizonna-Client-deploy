@@ -1,10 +1,11 @@
-import { getSession, signOut } from "next-auth/react";
+import Link from "next/link";
 import * as React from "react";
-import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import MainLogo from "../mainLogo";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
 import { useState } from "react";
+import { useEffect } from "react";
+import MainLogo from "../mainLogo";
+import { useRouter } from "next/router";
+import { getSession, signOut } from "next-auth/react";
+import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Navbar({ collapsedState, setcollapsedState, setmainPageContent }) {
@@ -26,8 +27,6 @@ function Navbar({ collapsedState, setcollapsedState, setmainPageContent }) {
     }
   };
 
-  // return <div className="bg-black">sdasd</div>;
-
   return (
     <ProSidebar
       width={"22vw"}
@@ -45,61 +44,67 @@ function Navbar({ collapsedState, setcollapsedState, setmainPageContent }) {
       <div className="absolute blur-xl -z-[1] bg-white opacity-[.1] w-[100%] h-[100vh]"></div>
 
       <Menu className="w-[15vw] pl-[2vw] h-[30vh] absolute z-10">
-        <div className=" ml-[-2.5vw] mt-[-5vh] absolute">
+        <div className="ml-[-.5vw] mt-[5vh]">
           <MainLogo collapsedState={collapsedState} />
         </div>
         <MenuItem
-          className="my-[6vh] flex"
           onClick={() => {
             setmainPageContent("Explore");
           }}
         >
-          <FontAwesomeIcon icon="fa-solid fa-compass" className="w-[1vw]" />
-          <p className="mt-[-3vh] mb-[-4vh] ml-[1.1vw] text-[1.5rem] font-[500]">
-            {collapsedState ? "" : "Explore"}
-          </p>
+          <div className="mt-[5vh] flex items-center w-[10vw] h-[3vh]">
+            <FontAwesomeIcon
+              icon="fa-solid fa-compass"
+              className="text-[1.5rem] w-[2vw] mr-[1vw]"
+            />
+            <span className="text-[1.5rem] font-[500]">
+              {collapsedState ? "" : "Explore"}
+            </span>
+          </div>
         </MenuItem>
         <MenuItem
-          className="my-[6vh] flex"
           onClick={() => {
             setmainPageContent("");
           }}
         >
-          <FontAwesomeIcon
-            icon="fa-solid fa-user-astronaut"
-            className="w-[1vw]"
-          />
-          <p className="mt-[-3vh] mb-[-4vh] ml-[1.1vw] text-[1.5rem] font-[500]">
-            {collapsedState ? "" : "My Profile"}
-          </p>
+          <div className="mt-[5vh] flex items-center w-[10vw] h-[3vh]">
+            <FontAwesomeIcon
+              icon="fa-solid fa-user-astronaut"
+              className="text-[1.5rem] w-[2vw] mr-[1vw]"
+            />
+            <span className="text-[1.5rem] font-[500]">
+              {collapsedState ? "" : "My Profile"}
+            </span>
+          </div>
         </MenuItem>
-        <MenuItem className="my-[7vh]">
+        <MenuItem>
           {currentSession ? (
-            <a
+            <div
               onClick={() => {
                 signOut();
               }}
+              className="mt-[5vh] flex items-center w-[10vw] h-[3vh]"
             >
               <FontAwesomeIcon
                 icon="fa-solid fa-person-through-window"
-                className="w-[1vw]"
+                className="text-[1.5rem] w-[2vw] mr-[1vw]"
               />
-              <p className="mt-[-3vh] ml-[1.2vw] text-[1.5rem] font-[500]">
-                {" "}
-                {collapsedState ? "" : " Sign Out"}
-              </p>
-            </a>
+              <span className="text-[1.5rem] font-[500]">
+                {collapsedState ? "" : "Sign Out"}
+              </span>
+            </div>
           ) : (
-            <a href="/signin">
-              <FontAwesomeIcon
-                icon="fa-solid fa-arrow-right-to-bracket"
-                className="w-[1vw]"
-              />
-              <p className="mt-[-3.2vh] ml-[1.2vw] text-[1.5rem] font-[500]">
-                {" "}
-                {collapsedState ? "" : " Sign In"}
-              </p>
-            </a>
+            <Link href="/signin">
+              <div className="mt-[5vh] flex items-center w-[10vw] h-[3vh]">
+                <FontAwesomeIcon
+                  icon="fa-solid fa-arrow-right-to-bracket"
+                  className="text-[1.5rem] w-[2vw] mr-[1vw]"
+                />
+                <span className="text-[1.5rem] font-[500]">
+                  {collapsedState ? "" : "Sign In"}
+                </span>
+              </div>
+            </Link>
           )}
         </MenuItem>
       </Menu>

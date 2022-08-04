@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import axiosInstance from "../services/axiosinstance";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 function ForgotPassword() {
   const router = useRouter();
@@ -69,10 +70,12 @@ function ForgotPassword() {
         </div>
       </div>
 
-      <a className="z-[2] absolute left-[2vw] top-[3vh]" href="/signin">
-        <FontAwesomeIcon icon="fa-solid fa-arrow-left" className="w-[1vw]" />{" "}
-        Back to Login
-      </a>
+      <Link href="/signin">
+        <div className="z-[2] absolute left-[2vw] top-[3vh] hover:cursor-pointer hover:text-cyan-400">
+          <FontAwesomeIcon icon="fa-solid fa-arrow-left" className="w-[1vw]" />
+          Back to Login
+        </div>
+      </Link>
 
       <div className="absolute z-[1] w-[30%] mt-[20vh] rounded-[2vh] opacity-25 bg-black h-[70%]" />
     </div>

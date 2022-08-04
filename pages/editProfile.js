@@ -4,6 +4,7 @@ import axiosInstance from "../services/axiosinstance";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 function editProfile(props) {
   const { bio, username, createdAt, isVerified, fullname, email, user_avatar } =
@@ -115,7 +116,7 @@ function editProfile(props) {
               for="imageInput"
               className="cursor-pointer hover:bg-cyan-500 ml-[3vw] flex items-center justify-center bg-cyan-800 h-[5vh] w-[10vw] rounded-[3vh]"
             >
-              <a className="cursor-pointer font-montserrat">Change Image</a>
+              Change Image
               <input
                 onChange={onImageChange}
                 id="imageInput"
@@ -168,9 +169,12 @@ function editProfile(props) {
           color="info"
         />
         <div className="flex w-[20vw] justify-between">
-          <Button color="error" variant="contained">
-            <a href="/"> Cancel</a>
-          </Button>
+          <Link href="/">
+            <Button color="error" variant="contained">
+              Cancel
+            </Button>
+          </Link>
+
           {changes ? (
             <Button onClick={onSaveProfileButton} variant="contained">
               Save Profile

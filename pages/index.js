@@ -1,3 +1,4 @@
+import Link from "next/link";
 import * as React from "react";
 import { useState } from "react";
 import { Button } from "@mui/material";
@@ -78,9 +79,11 @@ function Home(props) {
       return (
         <div className="w-[98%] flex flex-col items-center justify-center h-[98%]">
           <p className="text-[2rem] mb-[3vh]">You are not Signed In</p>
-          <Button variant="outlined" className="w-[6vw] h-[2vw] ">
-            <a href="/signin">Sign In</a>
-          </Button>
+          <Link href="/signin">
+            <Button variant="outlined" className="w-[6vw] h-[2vw] ">
+              Sign In
+            </Button>
+          </Link>
         </div>
       );
     }
@@ -198,9 +201,11 @@ function Home(props) {
       return (
         <div className="w-[98%] flex flex-col items-center justify-center h-[98%]">
           <p className="text-[2rem] mb-[3vh]">You are not Signed In</p>
-          <Button variant="outlined" className="w-[6vw] h-[2vw] ">
-            <a href="/signin">Sign In</a>
-          </Button>
+          <Link href="/signin">
+            <Button variant="outlined" className="w-[6vw] h-[2vw] ">
+              Sign In
+            </Button>
+          </Link>
         </div>
       );
     }

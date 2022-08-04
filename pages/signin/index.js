@@ -98,10 +98,10 @@ function Login() {
   return (
     <div className="h-[100vh] font-[montserrat] bg-gradient-to-r from-blue-900 to-green-800 flex justify-center items-center flex-col relative ">
       <div className="z-10 flex flex-col w-[30%] items-center h-[100%]">
-        <div className="flex mt-[6vh] justify-start pl-[10vh] w-[100%]">
+        <div className="mt-[10vh]">
           <MainLogo />
         </div>
-        <p className="text-[5vh] mb-[1vh] font-[500] ml-[1vh] self-start text-white mt-[15vh]">
+        <p className="text-[5vh] mb-[1vh] font-[500] ml-[1vh] self-start text-white mt-[10vh]">
           Sign in
         </p>
         <p className="text-[3.4vh] font-[200] ml-[1vh] self-start text-gray-400">
@@ -207,8 +207,7 @@ function Login() {
           </p>
         </div>
       </div>
-      <div className="absolute z-[2] w-[35%]  rounded-[2vh] opacity-25 bg-black h-[65%]" />
-      <ChakraProvider></ChakraProvider>
+      <div className="absolute z-[2] w-[35%] h-[65%] rounded-[2vh] opacity-25 bg-black" />
     </div>
   );
 }
