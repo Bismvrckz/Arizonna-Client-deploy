@@ -9,6 +9,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MenuIcon from "@mui/icons-material/Menu";
 import axiosInstance from "../services/axiosinstance";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Image from "next/image";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -121,13 +122,15 @@ function Home(props) {
     if (!postContent.length) {
       return (
         <div className="flex items-center justify-center w-[100%] h-[100%]">
-          <p>
-            {" "}
-            No one have even post a thing yet,{" "}
-            <a href="/postImage" className="text-blue-500 hover:underline">
-              Post the first image on Arizonna!
-            </a>
-          </p>
+          <Link href="/postImage">
+            <div>
+              {" "}
+              No one have even post a thing yet,{" "}
+              <p className="text-blue-500 hover:underline hover:cursor-pointer">
+                Post the first image on Arizonna!
+              </p>
+            </div>
+          </Link>
         </div>
       );
     }
@@ -139,12 +142,22 @@ function Home(props) {
             key={post.post_id}
             className="w-[19vw] h-[25vw] flex flex-col items-start rounded-[1vh] border-gray-500 border mb-[1vh] relative overflow-hidden"
           >
-            <a href={`/postDetail/${post.post_id}`} className="z-[2]">
-              <img
-                className="w-[19vw] h-[19vw] rounded-[1vh] z-[2]"
-                src={post.postImage}
-              />
-            </a>
+            <Link href={`/postDetail/${post.post_id}`}>
+              <div className=" hover:cursor-pointer w-[19vw] h-[19vw] z-[2]">
+                <Image
+                  alt=""
+                  width={500}
+                  unoptimized
+                  height={500}
+                  layout="responsive"
+                  style={{ borderRadius: "1vh" }}
+                  src={post.postImage}
+                  loader={() => {
+                    return post.postImage;
+                  }}
+                />
+              </div>
+            </Link>
             <div className="flex flex-col items-between justify-between w-[100%] h-[2rem] z-[2]">
               <p className="text-[0.9rem] text-gray-400">
                 {createdAt.slice(0, 10)}
@@ -176,7 +189,7 @@ function Home(props) {
               fetchMorePost();
             }, 2000);
           }}
-          hasMore={postContent.length < allPostLength}
+          hasMore={postContent.length < parseInt(allPostLength)}
           loader={
             <div className="w-[100%] flex items-center justify-center ">
               Bentar...
@@ -185,7 +198,7 @@ function Home(props) {
           endMessage={
             <div style={{ textAlign: "center" }}>
               <p className="font-[montserrat] font-[700]">
-                Yay! You have seen all Arizonna's post
+                Yay! You have seen all Arizonna&apos;s posts
               </p>
             </div>
           }
@@ -244,26 +257,38 @@ function Home(props) {
       if (!userPosts.length) {
         return (
           <div className="flex items-center justify-center w-[100%] h-[100%]">
-            <p>
-              {" "}
-              You havent post anything yet,{" "}
-              <a href="/postImage" className="text-blue-500 hover:underline">
+            You havent post anything yet,
+            <Link href="/postImage">
+              <p className="text-blue-500 hover:underline hover:cursor-pointer">
                 Post your first image!
-              </a>
-            </p>
+              </p>
+            </Link>
           </div>
         );
       }
 
       const postMap = userPosts.map((post) => {
         return (
-          <div className="w-[19vw] h-[25vw] flex flex-col items-start rounded-[1vh] border-gray-500 border mb-[1vh] relative overflow-hidden">
-            <a href={`/postDetail/${post.post_id}`} className="z-[2]">
-              <img
-                className="w-[19vw] h-[19vw] rounded-[1vh] z-[2] "
-                src={post.postImage}
-              />
-            </a>
+          <div
+            key={post.post_id}
+            className="w-[19vw] h-[25vw] flex flex-col items-start rounded-[1vh] border-gray-500 border mb-[1vh] relative overflow-hidden"
+          >
+            <Link href={`/postDetail/${post.post_id}`}>
+              <div className="w-[19vw] h-[19vw] z-[2] hover:cursor-pointer">
+                <Image
+                  alt=""
+                  width={500}
+                  unoptimized
+                  height={500}
+                  layout="responsive"
+                  src={post.postImage}
+                  style={{ borderRadius: "1vh" }}
+                  loader={() => {
+                    return post.postImage;
+                  }}
+                />
+              </div>
+            </Link>
             <div className="flex flex-col items-between justify-between w-[100%] h-[2rem] z-[2]">
               <p className="text-[0.9rem] text-gray-400">
                 {createdAt.slice(0, 10)}
@@ -298,39 +323,55 @@ function Home(props) {
             <p className="w-[15vw] font-[300]">{bio}</p>
           </div>
 
-          <a
-            href="/editProfile"
-            className={
-              editProfileMenu
-                ? "bg-cyan-900 hover:bg-cyan-500 z-[1] w-[90%] h-[5vh] flex items-center mb-[1vh] rounded-[2vh] justify-center ease-in-out duration-300"
-                : "bg-cyan-900 hover:bg-cyan-500 -z-[1] w-[90%] h-[0vh] flex items-center mb-[1vh] rounded-[2vh] justify-center ease-in-out duration-300"
-            }
-          >
-            Edit Profile
-          </a>
-          <a
-            href="/postImage"
-            className={
-              editProfileMenu
-                ? "bg-green-900 hover:bg-green-500 z-[1] w-[90%] h-[5vh] flex items-center mb-[1vh] rounded-[2vh] justify-center ease-in-out duration-300"
-                : "bg-green-900 hover:bg-green-500 -z-[1] w-[90%] h-[0vh] flex items-center mb-[1vh] rounded-[2vh] justify-center ease-in-out duration-300"
-            }
-          >
-            New Post
-          </a>
-          <a
-            href="/userLikes"
-            className={
-              editProfileMenu
-                ? "bg-orange-900 hover:bg-orange-500 z-[1] w-[90%] h-[5vh] flex items-center mb-[1vh] rounded-[2vh] justify-center ease-in-out duration-300"
-                : "bg-orange-900 hover:bg-orange-500 -z-[1] w-[90%] h-[0vh] flex items-center mb-[1vh] rounded-[2vh] justify-center ease-in-out duration-300"
-            }
-          >
-            My Likes
-          </a>
+          <Link href="/editProfile">
+            <div
+              className={
+                editProfileMenu
+                  ? "bg-cyan-900 hover:cursor-pointer hover:bg-cyan-500 z-[1] w-[90%] h-[5vh] flex items-center mb-[1vh] rounded-[2vh] justify-center ease-in-out duration-300"
+                  : "bg-cyan-900 hover:cursor-pointer hover:bg-cyan-500 -z-[1] w-[90%] h-[0vh] flex items-center mb-[1vh] rounded-[2vh] justify-center ease-in-out duration-300"
+              }
+            >
+              Edit Profile
+            </div>
+          </Link>
+          <Link href="/postImage">
+            <div
+              className={
+                editProfileMenu
+                  ? "bg-green-900 hover:cursor-pointer hover:bg-green-500 z-[1] w-[90%] h-[5vh] flex items-center mb-[1vh] rounded-[2vh] justify-center ease-in-out duration-300"
+                  : "bg-green-900 hover:cursor-pointer hover:bg-green-500 -z-[1] w-[90%] h-[0vh] flex items-center mb-[1vh] rounded-[2vh] justify-center ease-in-out duration-300"
+              }
+            >
+              New Post
+            </div>
+          </Link>
+          <Link href="/userLikes">
+            <div
+              className={
+                editProfileMenu
+                  ? "bg-orange-900 hover:cursor-pointer hover:bg-orange-500 z-[1] w-[90%] h-[5vh] flex items-center mb-[1vh] rounded-[2vh] justify-center ease-in-out duration-300"
+                  : "bg-orange-900 hover:cursor-pointer hover:bg-orange-500 -z-[1] w-[90%] h-[0vh] flex items-center mb-[1vh] rounded-[2vh] justify-center ease-in-out duration-300"
+              }
+            >
+              My Likes
+            </div>
+          </Link>
           <div className="border-t-[0.1vh] h-[8vh] border-cyan-500 flex flex-col items-center justify-end rounded-[4vh] w-[100%] ease-in-out duration-100">
             <div className="flex justify-start items-center w-[100%]">
-              <img src={imgSource} className="w-[4vw] h-[4vw] rounded-[50%]" />
+              <div className="w-[4vw] h-[4vw]">
+                <Image
+                  alt=""
+                  width={77}
+                  unoptimized
+                  height={77}
+                  src={imgSource}
+                  layout="fixed"
+                  style={{ borderRadius: "50%" }}
+                  loader={() => {
+                    return imgSource;
+                  }}
+                />
+              </div>
               <div className="ml-[0.2vw] w-[13vw] h-[7vh] flex flex-col justify-center">
                 <p className="font-[600] text-[1rem]">{username}</p>
                 <p className="font-[400] text-[.7rem]">{fullname}</p>

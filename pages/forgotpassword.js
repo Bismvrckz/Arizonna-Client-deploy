@@ -6,6 +6,7 @@ import axiosInstance from "../services/axiosinstance";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Image from "next/image";
 
 function ForgotPassword() {
   const router = useRouter();
@@ -27,14 +28,23 @@ function ForgotPassword() {
 
   return (
     <div className="h-[100vh] bg-gradient-to-r from-blue-900 to-green-800 flex justify-start items-center flex-col relative">
-      <div className="flex justify-start mt-[10vh] pl-[10vh] w-[30%]">
+      <div className="flex justify-center mt-[10vh] w-[30%]">
         <MainLogo />
       </div>
 
-      <img
-        src="https://static.vecteezy.com/system/resources/previews/000/690/821/original/blue-mailbox-with-red-flag-and-letters-vector.jpg"
-        className="rounded-[50%] mt-[8vh] w-[15%] z-[3] m-[0vh] opacity-[.8]"
-      />
+      <div className="mt-[8vh] w-[15%] z-[3]">
+        <Image
+          alt=""
+          src="https://static.vecteezy.com/system/resources/previews/000/690/821/original/blue-mailbox-with-red-flag-and-letters-vector.jpg"
+          loader={() => {
+            return "https://static.vecteezy.com/system/resources/previews/000/690/821/original/blue-mailbox-with-red-flag-and-letters-vector.jpg";
+          }}
+          layout="responsive"
+          height={"5vh"}
+          width={"5vh"}
+          style={{ borderRadius: "50%" }}
+        />
+      </div>
 
       <div className="w-[30%] z-[3] mt-[-10vh] font-[montserrat] flex flex-col items-center justify-center h-[60%] ">
         <div className="flex flex-col justify-center w-[80%]">
@@ -43,7 +53,7 @@ function ForgotPassword() {
           </div>
           <p className="text-[1vw] font-[200] mb-[1vh] text-gray-400">
             Please enter your registered email address. <br />
-            We'll send instructions to help reset your <br />
+            We will send instructions to help reset your <br />
             password.
           </p>
 

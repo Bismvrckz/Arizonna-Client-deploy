@@ -5,8 +5,9 @@ import { Button } from "@mui/material";
 import axiosInstance from "../services/axiosinstance";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
-function postImage(props) {
+function PostImage(props) {
   const [imgSource, setImgSource] = useState(null);
   const [avatar, setAvatar] = useState(null);
   const [caption, setCaption] = useState("");
@@ -59,11 +60,20 @@ function postImage(props) {
         <div className="w-[30%] flex justify-center ">
           {imgSource ? (
             <div>
-              <img
-                className="w-[40vh] h-[40vh] mt-[10vh] rounded-[3vh]"
-                src={imgSource}
-              />
-              <label for="changeImage" className="">
+              <div className="w-[40vh] h-[40vh] mt-[10vh]">
+                <Image
+                  alt=""
+                  width={500}
+                  height={500}
+                  src={imgSource}
+                  layout="responsive"
+                  style={{ borderRadius: "3vh" }}
+                  loader={() => {
+                    return imgSource;
+                  }}
+                />
+              </div>
+              <label htmlFor="changeImage" className="">
                 <p className="cursor-pointer flex items-center justify-center w-[100%] h-[5vh] mt-[5vh] rounded-[2vh] hover:bg-cyan-500 bg-cyan-900">
                   Change Image
                 </p>
@@ -77,7 +87,7 @@ function postImage(props) {
             </div>
           ) : (
             <label
-              for="inputImage"
+              htmlFor="inputImage"
               className="w-[40vh] h-[40vh] mt-[10vh] rounded-[3vh] border-2 cursor-pointer flex items-center justify-center"
             >
               <FontAwesomeIcon
@@ -153,4 +163,4 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default postImage;
+export default PostImage;

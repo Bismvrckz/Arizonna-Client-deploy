@@ -1,10 +1,12 @@
 import { Button, TextField } from "@mui/material";
 import { getSession } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import axiosInstance from "../../services/axiosinstance";
 
-function editPost(props) {
+function EditPost(props) {
   const { poster } = props;
   const { userData } = props;
   const { postDetail } = props;
@@ -37,17 +39,34 @@ function editPost(props) {
     <div className="flex flex-col items-center justify-center bg-gradient-to-r from-teal-900 to-cyan-900 w-[100vw] h-[100vh] relative">
       <div className="w-[98%] h-[98%] flex z-[2] rounded-[1vh] overflow-hidden">
         <div id="bagian-kiri" className="flex flex-col">
-          <img
-            src={postDetail.postImage}
-            className="rounded-[1vh] w-[45vw] h-[45vw] hover:cursor-pointer"
-          />
+          <div className="rounded-[1vh] w-[45vw] h-[45vw] hover:cursor-pointer">
+            <Image
+              alt=""
+              layout="responsive"
+              width={500}
+              height={500}
+              src={postDetail.postImage}
+              loader={() => {
+                return postDetail.postImage;
+              }}
+            />
+          </div>
         </div>
         <div id="bagian-kanan" className="flex flex-col w-[51vw] mx-[2vw]">
           <div className="flex my-[2vh] h-[10vh] items-center">
-            <img
-              className="w-[2.5vw] h-[2.5vw] rounded-[50%]"
-              src={poster.user_avatar}
-            />
+            <div className="w-[2.5vw] h-[2.5vw] rounded-[50%]">
+              <Image
+                style={{ borderRadius: "50%" }}
+                alt=""
+                layout="responsive"
+                width={500}
+                height={500}
+                src={poster.user_avatar}
+                loader={() => {
+                  return poster.user_avatar;
+                }}
+              />
+            </div>
             <div className="flex flex-col pl-[1vw] grow">
               <div className="flex">
                 <p className="font-[600] mr-[0.3vw]">{poster.username}</p>
@@ -62,7 +81,9 @@ function editPost(props) {
           ></TextField>
           <div className="flex mt-[1vh]">
             <Button className="mr-[2vw]" color="error" variant="contained">
-              <a href={`../postDetail/${post_id}`}> Cancel change</a>
+              <Link href={`../postDetail/${post_id}`}>
+                <p> Cancel change</p>
+              </Link>
             </Button>
             <Button
               onClick={onClickConfirmChange}
@@ -131,4 +152,4 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default editPost;
+export default EditPost;

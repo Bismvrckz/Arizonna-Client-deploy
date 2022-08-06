@@ -12,7 +12,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormHelperText from "@mui/material/FormHelperText";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-function resetPassword(props) {
+function ResetPassword(props) {
   console.log({ props });
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -24,6 +24,7 @@ function resetPassword(props) {
     confirmPassword: false,
     password: false,
   });
+  const router = useRouter();
 
   if (!props.user) {
     return (
@@ -33,8 +34,6 @@ function resetPassword(props) {
       </div>
     );
   }
-
-  const router = useRouter();
 
   const handleChangeInput = (prop) => (event) => {
     setInputs({ ...inputs, [prop]: event.target.value });
@@ -188,4 +187,4 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default resetPassword;
+export default ResetPassword;

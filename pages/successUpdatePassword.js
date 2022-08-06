@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import MainLogo from "../components/mainLogo";
 
@@ -10,12 +11,11 @@ function successUpdatePassword() {
       <div className="w-[30vw] h-[50vh] rounded-[1vh] z-[2] flex flex-col items-center justify-center">
         <p className="font-[700] text-[2.5rem]">Horray!</p>
         <p className="mb-[3vh] text-[1.5rem]">You have updated your password</p>
-        <a
-          href="/signin"
-          className="underline hover:text-cyan-400 hover:no-underline"
-        >
-          Back to login
-        </a>
+        <Link href="/signin">
+          <p className="underline hover:text-cyan-400 hover:no-underline hover:cursor-pointer">
+            Back to login
+          </p>
+        </Link>
       </div>
       <div className="bg-black w-[30vw] h-[50vh] absolute rounded-[1vh] opacity-[.3]" />
     </div>

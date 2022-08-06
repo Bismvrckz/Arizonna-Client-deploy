@@ -8,8 +8,10 @@ import Popover from "@mui/material/Popover";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import Image from "next/image";
 
-function postDetail(props) {
+function PostDetail(props) {
   const { poster } = props;
   const { userData } = props;
   const { postDetail } = props;
@@ -56,7 +58,7 @@ function postDetail(props) {
     if (postDetail.user_id == userData.user_id) {
       setPostOwner(true);
     }
-  }, []);
+  }, [userData.user_id, postDetail.user_id, postDetail.postLikes]);
 
   async function getMoreComments() {
     const { accessToken } = props;
@@ -187,11 +189,20 @@ function postDetail(props) {
     <div className="flex flex-col items-center justify-center bg-gradient-to-r from-teal-900 to-cyan-900 w-[100vw] h-[100vh] relative">
       <div className="w-[98%] h-[98%] flex z-[2] rounded-[1vh] overflow-hidden">
         <div id="bagian-kiri" className="flex flex-col">
-          <img
-            onDoubleClick={alterLikeTrigger}
-            src={postDetail.postImage}
-            className="rounded-[1vh] w-[45vw] h-[45vw] hover:cursor-pointer"
-          />
+          <div className="w-[45vw] h-[45vw] hover:cursor-pointer">
+            <Image
+              alt=""
+              width={500}
+              height={500}
+              style={{ borderRadius: "1vh" }}
+              layout="responsive"
+              src={postDetail.postImage}
+              onDoubleClick={alterLikeTrigger}
+              loader={() => {
+                return postDetail.postImage;
+              }}
+            />
+          </div>
           <div className="ml-[1vw]">
             <p className="font-[600] text-[1.5rem]">{poster.username}</p>
             <p className="font-[200]">
@@ -210,14 +221,22 @@ function postDetail(props) {
         </div>
         <div id="bagian-kanan" className="flex flex-col w-[51vw] mx-[2vw]">
           <div className="flex my-[2vh] h-[10vh] items-center">
-            <img
-              className="w-[2.5vw] h-[2.5vw] rounded-[50%]"
-              src={poster.user_avatar}
-            />
+            <div className="w-[2.5vw] h-[2.5vw] rounded-[50%]">
+              <Image
+                alt=""
+                width={500}
+                height={500}
+                src={poster.user_avatar}
+                style={{ borderRadius: "50%" }}
+                loader={() => {
+                  return poster.user_avatar;
+                }}
+              />
+            </div>
             <div className="flex flex-col pl-[1vw] grow">
               <div className="flex">
                 <p className="font-[600] mr-[0.3vw]">{poster.username}</p> -
-                <p className="mx-[0.3vw]">"{postDetail.caption}"</p>
+                <p className="mx-[0.3vw]">&ldquo;{postDetail.caption}&ldquo;</p>
               </div>
               <p>{postDetail.createdAt.slice(0, 10)}</p>
             </div>
@@ -256,12 +275,11 @@ function postDetail(props) {
                     alignItems: "start",
                   }}
                 >
-                  <a
-                    href={`../editPost/${post_id}`}
-                    className="hover:cursor-pointer hover:text-cyan-600"
-                  >
-                    Edit
-                  </a>
+                  <Link href={`../editPost/${post_id}`}>
+                    <p className="hover:cursor-pointer hover:text-cyan-600">
+                      Edit
+                    </p>
+                  </Link>
                   <p
                     onClick={handleOpenModal}
                     className="hover:cursor-pointer hover:text-red-600"
@@ -332,7 +350,9 @@ function postDetail(props) {
             {comments.length ? (
               commentsMap
             ) : (
-              <p className="mt-[3vh]">"Nobody has commented yet."</p>
+              <p className="mt-[3vh]">
+                &ldquo;Nobody has commented yet.&ldquo;
+              </p>
             )}
             {comments.length == 5 ? (
               <Button onClick={getMoreComments} variant="text">
@@ -408,4 +428,4 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default postDetail;
+export default PostDetail;

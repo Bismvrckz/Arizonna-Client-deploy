@@ -15,6 +15,8 @@ import { getSession } from "next-auth/react";
 import Alert from "@mui/material/Alert";
 import { useRouter } from "next/router";
 import { Button } from "@mui/material";
+import Link from "next/link";
+import Image from "next/image";
 const taiPasswordStrength = require("tai-password-strength");
 
 function SignUp() {
@@ -140,10 +142,20 @@ function SignUp() {
       </div>
       <div className="grow grid grid-cols-2 w-[100%]">
         <div className="flex justify-center items-center ">
-          <img
-            src="https://www.utviklingssenter.no/aktiviteter/kompetanseutvikling/prosjektlederskolen?pid=Utviklingssenter-ArticlePage-Image&r_n_d=23103_&adjust=1&x=843&from=0"
-            className="rounded-[50%] w-[80%] brightness-[.85]"
-          />
+          <div className="w-[80%] brightness-[.85]">
+            <Image
+              alt=""
+              unoptimized
+              width={500}
+              height={500}
+              layout="responsive"
+              style={{ borderRadius: "50%" }}
+              src="https://www.utviklingssenter.no/aktiviteter/kompetanseutvikling/prosjektlederskolen?pid=Utviklingssenter-ArticlePage-Image&r_n_d=23103_&adjust=1&x=843&from=0"
+              loader={() => {
+                return "https://www.utviklingssenter.no/aktiviteter/kompetanseutvikling/prosjektlederskolen?pid=Utviklingssenter-ArticlePage-Image&r_n_d=23103_&adjust=1&x=843&from=0";
+              }}
+            />
+          </div>
         </div>
 
         <div className="flex flex-col justify-start w-[75%]">
@@ -278,12 +290,14 @@ function SignUp() {
               <p className="text-[2vh]">Sign Up</p>
             </Button>
           )}
-          <p className="mt-[3vh] ml-[10vw] text-[white]">
-            Already have an account? <span> </span>
-            <a href="/signin" className="no-underline text-sky-500">
-              Sign in
-            </a>
-          </p>
+          <div className="mt-[3vh] ml-[10vw] text-[white] flex">
+            Already have an account?
+            <Link href="/signin">
+              <p className="no-underline text-sky-500 ml-[.1vw] hover:text-sky-400 hover:cursor-pointer">
+                Sign in
+              </p>
+            </Link>
+          </div>
           {bottomAlert.isShowed ? (
             <Alert
               severity={bottomAlert.severity}

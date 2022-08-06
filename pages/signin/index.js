@@ -18,6 +18,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import { ChakraProvider } from "@chakra-ui/react";
 import { getSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 function Login() {
   const [click, setclick] = useState(false);
@@ -194,17 +195,21 @@ function Login() {
           </Button>
         )}
         <div className="flex bottom-[10vh] absolute flex-col items-center">
-          <p className="text-[white]">
-            Don't have an account? <span> </span>
-            <a href="/signup" className="no-underline text-sky-500">
-              Sign up
-            </a>
-          </p>
-          <p className="text-[white]">
-            <a href="/forgotpassword" className="no-underline text-sky-500">
-              Forgot password?
-            </a>
-          </p>
+          <div className="text-[white] flex">
+            Don&apos;t have an account?
+            <Link href="/signup">
+              <p className="ml-[0.1vw] hover:text-sky-400 text-sky-500 hover:cursor-pointer">
+                Sign up
+              </p>
+            </Link>
+          </div>
+          <div className="text-[white]">
+            <Link href="/forgotpassword">
+              <p className="no-underline hover:text-sky-400 text-sky-500 hover:cursor-pointer">
+                Forgot password?
+              </p>
+            </Link>
+          </div>
         </div>
       </div>
       <div className="absolute z-[2] w-[35%] h-[65%] rounded-[2vh] opacity-25 bg-black" />

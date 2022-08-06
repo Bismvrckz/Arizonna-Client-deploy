@@ -5,8 +5,9 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Image from "next/image";
 
-function editProfile(props) {
+function EditProfile(props) {
   const { bio, username, createdAt, isVerified, fullname, email, user_avatar } =
     props.user.dataValues;
 
@@ -42,7 +43,7 @@ function editProfile(props) {
     ) {
       setChanges(false);
     }
-  }, [inputs]);
+  }, [inputBio, inputFullname, inputUsername, username, bio, fullname]);
 
   const handleInputChange = (prop) => (event) => {
     setInputs({ ...inputs, [prop]: event.target.value });
@@ -110,10 +111,22 @@ function editProfile(props) {
     <div className="bg-gradient-to-r flex items-center justify-center from-teal-900 to-cyan-900 w-[100vw] h-[100vh] relative">
       <div className="w-[95%] h-[95%] flex flex-col justify-evenly items-start z-[2]">
         <div id="changeUserImage" className="flex items-center">
-          <img className="rounded-[50%] w-[10vw] h-[10vw]" src={imgSource} />
+          <div className="w-[10vw] h-[10vw]">
+            <Image
+              alt=""
+              width={500}
+              height={500}
+              layout="responsive"
+              src={imgSource}
+              style={{ borderRadius: "50%" }}
+              loader={() => {
+                return imgSource;
+              }}
+            />
+          </div>
           <div className="flex flex-col h-[70%] items-center justify-center ea">
             <label
-              for="imageInput"
+              htmlFor="imageInput"
               className="cursor-pointer hover:bg-cyan-500 ml-[3vw] flex items-center justify-center bg-cyan-800 h-[5vh] w-[10vw] rounded-[3vh]"
             >
               Change Image
@@ -217,4 +230,4 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default editProfile;
+export default EditProfile;

@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import axiosInstance from "../services/axiosinstance";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 
 function userLikes(props) {
   const { userLikedPostsMapped } = props.userLikedPosts.data;
@@ -14,12 +15,22 @@ function userLikes(props) {
           key={post.post_id}
           className="w-[19vw] h-[25vw] flex flex-col items-start rounded-[1vh] border-gray-500 border mb-[1vh] relative overflow-hidden"
         >
-          <a href={`/postDetail/${post.post_id}`} className="z-[2]">
-            <img
-              className="w-[19vw] h-[19vw] rounded-[1vh] z-[2]"
-              src={post.postImage}
-            />
-          </a>
+          <Link href={`/postDetail/${post.post_id}`}>
+            <div className="w-[19vw] h-[19vw] z-[2]">
+              <Image
+                alt=""
+                unoptimized
+                width={500}
+                height={500}
+                layout="responsive"
+                style={{ borderRadius: "1vh" }}
+                src={post.postImage}
+                loader={() => {
+                  return post.postImage;
+                }}
+              />
+            </div>
+          </Link>
           <div className="flex flex-col items-between justify-between w-[100%] h-[2rem] z-[2]">
             <p className="text-[0.9rem] text-gray-400">
               {post.createdAt.slice(0, 10)}
@@ -44,9 +55,9 @@ function userLikes(props) {
     <div className="bg-gradient-to-r from-teal-900 to-cyan-900 w-[100vw] h-[100vh] flex flex-col justify-center items-center relative">
       <div className="z-[3] w-[100%] h-[100%] flex flex-col items-center justify-start">
         <p className="w-[95%] font-[600] text-[1.5rem]">
-          Here are the posts that you've liked.
+          Here are the posts that you&apos;ve liked.
         </p>
-        <div className="border-[0.1vh] border-gray-700 w-[95%] h-[92%] overflow-auto rounded-[1vh]">
+        <div className="border-[0.1vh] border-gray-700 w-[95%] h-[92%] overflow-auto scrollbar rounded-[1vh]">
           {renderUserLikedPosts()}
         </div>
 
